@@ -97,24 +97,26 @@ class DoublyLinkedList {
         delete temp;
     }
 
-    void delete_pos(int position) {
-        Node * temp = head;
-        Node * successor = nullptr;
-        Node * predecessor = nullptr;
+    void delete_pos(Node* pos) {
+        Node * current = pos;
+        Node * successor = current->next;
+        Node * predecessor = current->prev;
 
         if(!head) {
             cout << "List is empty!";
             return;
         }
 
-        if (position == 1) {
-            if (!tail->prev)
-                
-        }
-        for (int i = 0; i < position; i ++) {
-            if ()
-        }
+        if (successor)
+            successor->prev = predecessor;
+        if (predecessor)
+            predecessor->next = successor;
+        if (current == head)
+            head = successor;
+        if (current == tail)
+            tail = predecessor
 
+        delete current;
     }
 
     void print() {
