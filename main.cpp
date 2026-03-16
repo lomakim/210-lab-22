@@ -97,6 +97,26 @@ class DoublyLinkedList {
         delete temp;
     }
 
+    void delete_pos(int position) {
+        Node * temp = head;
+        Node * successor = nullptr;
+        Node * predecessor = nullptr;
+
+        if(!head) {
+            cout << "List is empty!";
+            return;
+        }
+
+        if (position == 1) {
+            if (!tail->prev)
+                
+        }
+        for (int i = 0; i < position; i ++) {
+            if ()
+        }
+
+    }
+
     void print() {
         Node * current = head;
         if (!current) return;
@@ -146,6 +166,6 @@ int main() {
 
     cout << "List forward: ";
     list.print();
-    
+
     return 0;
 }
