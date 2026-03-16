@@ -109,7 +109,7 @@ class DoublyLinkedList {
             return;
         }
 
-        for(int i = 0; i < pos; i++) {
+        for(int i = 0; i < (pos - 1); i++) {
             current = current->next;
             successor = current->next;
             predecessor = current->prev;
@@ -119,10 +119,14 @@ class DoublyLinkedList {
             successor->prev = predecessor;
         if (predecessor)
             predecessor->next = successor;
-        if (current == head)
+        if (current == head) {
             head = successor;
-        if (current == tail)
+            head->prev = nullptr;
+        }
+        if (current == tail) {
             tail = predecessor;
+            tail->next = nullptr;
+        }
 
         delete current;
     }
@@ -135,25 +139,31 @@ class DoublyLinkedList {
         else {
             Node * temp = head;
             head = head->next;
+            head->prev = nullptr;
             delete temp;
         }
     }
 
     void pop_back() {
-        if (!head) {
+        if (!tail) {
             cout << "List is empty!";
             return;
         }
         else {
             Node * temp = tail;
             tail = tail->prev;
+            tail->next = nullptr;
             delete temp;
         }
     }
 
     void print() {
         Node * current = head;
-        if (!current) return;
+
+        if (!current) {
+            cout << "List is empty!";
+            return;
+        }
         while (current) {
             cout << current -> data << " ";
             current = current -> next;
@@ -163,7 +173,10 @@ class DoublyLinkedList {
 
     void print_reverse() {
         Node * current = tail;
-        if (!current) return;
+        if (!current) {
+            cout << "List is empty!";
+            return;
+        }
         while (current) {
             cout << current -> data << " ";
             current = current -> prev;
@@ -186,7 +199,7 @@ int main() {
     DoublyLinkedList list;
     int size = rand() % (MAX_LS - MIN_LS + 1) + MIN_LS;
 
-    for (int i = 0; i < 16; ++i) {
+    for (int i = 0; i < size; ++i) {
         list.push_back(rand() % (MAX_NR - MIN_NR + 1) + MIN_NR);
     }
     
@@ -195,28 +208,26 @@ int main() {
     cout << "List backward: ";
     list.print_reverse();
 
-    cout << "Now deleting head using pop_front() function." << endl;
+    cout << "\nNow deleting head using pop_front() function." << endl;
     list.pop_front();
-
     cout << "List forward: ";
     list.print();
     cout << "List backward: ";
     list.print_reverse();
 
-    cout << "Now deleting tail using pop_back() fucntion." << endl;
+    cout << "\nNow deleting tail using pop_back() function." << endl;
+    list.pop_back();
     cout << "List forward: ";
     list.print();
     cout << "List backward: ";
     list.print_reverse();
 
-    cout << "Now deleting list item #5 using delete_pos() fucntion. " << endl;
+    cout << "\nNow deleting list item #5 using delete_pos() function." << endl;
     list.delete_pos(5);
     cout << "List forward: ";
     list.print();
-    cout << "List backward: ";
-    list.print_reverse();
 
-    cout << "Deleting list, then trying to print.\n";
+    cout << "\nDeleting list, then trying to print.\n";
     list.~DoublyLinkedList();
 
     cout << "List forward: ";
